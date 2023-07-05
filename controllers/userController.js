@@ -34,8 +34,9 @@ const userPost = async (req, res) => {
  */
 const userGet = (req, res) => {
   // if an specific user is required
-  if (req.query && req.query.id) {
-    User.findById(req.query.id)
+  let email = req.query.email;
+  if (req.query && email) {
+    User.findOne({email})
       .populate("users")
       .then((user) => {
         res.json(user);
