@@ -15,9 +15,9 @@ async function authenticate(req, res) {
     if (!user || user.password !== password) {
       return res.status(404).json({ error: "Usuario no válido" });
     }
-
+    let role = user.role;
     // Si las credenciales son válidas, se genera un nuevo token JWT
-    const token = jwt.sign({ email, password }, secretKey);
+    const token = jwt.sign({ email, role }, secretKey);
 
     // Guarda el token en la base de datos para el usuario correspondiente
     user.token = token;
@@ -47,6 +47,7 @@ function verifyToken(req, res, next) {
     try {
       // Verificar la existencia del usuario en la base de datos
       const user = await User.findOne({ email: decoded.email });
+      console.log(decoded.role);
       if (!user) {
         return res.status(401).json({ error: "Usuario no encontrado" });
       }
