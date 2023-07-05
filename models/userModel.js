@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
     email: { type: String },
     password: {type: String},
     role: {type: String},
-    token: {type: String}
+    token: {type: String},
+    verified : {type: Boolean}
   });
   
   module.exports = mongoose.model('User', userSchema);
