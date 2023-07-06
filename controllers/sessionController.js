@@ -24,7 +24,7 @@ async function authenticate(req, res) {
     user.token = token;
     await user.save();
 
-    return res.json(token);
+    return res.json({ token: token });
   } catch (error) {
     console.error("Error al autenticar el usuario:", error);
     return res.status(500).json({ error: "Error interno del servidor" });
@@ -54,7 +54,6 @@ function verifyToken(req, res, next) {
 
       // Almacenar el usuario en el objeto de solicitud para usarlo en otras rutas
       res.json(user.token);
-      
     } catch (error) {
       console.error("Error al verificar el token:", error);
       res.status(500).json({ error: "Error interno del servidor" });
