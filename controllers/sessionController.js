@@ -32,7 +32,7 @@ async function authenticate(req, res) {
 }
 
 // Middleware para verificar el token JWT en las rutas protegidas
-function verifyToken(req, res, next) {
+function verifyToken(req, res) {
   const token = req.headers["authorization"];
   console.log(token);
 
