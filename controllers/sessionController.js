@@ -17,14 +17,15 @@ async function authenticate(req, res) {
     }
     let role = user.role;
     let id_user = user._id;
+    let name = user.name;
     // Si las credenciales son válidas, se genera un nuevo token JWT
-    const token = jwt.sign({ email, role, id_user }, secretKey);
+    const token = jwt.sign({ email, role, id_user, name }, secretKey);
 
     // Guarda el token en la base de datos para el usuario correspondiente
     user.token = token;
     await user.save();
 
-    return res.json({ token: token });
+    return res.json({ token: token, userRole: role, userId: id_user, userName: name });
   } catch (error) {
     console.error("Error al autenticar el usuario:", error);
     return res.status(500).json({ error: "Error interno del servidor" });
