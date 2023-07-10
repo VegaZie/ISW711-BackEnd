@@ -69,14 +69,14 @@ const userGet = (req, res) => {
 
 const userPatch = (req, res) => {
   if (req.query && req.query.id) {
-    Course.findByIdAndUpdate(req.query.id, req.body, function (err, course) {
+    User.findByIdAndUpdate(req.query.id, req.body, function (err, user) {
       if (err) {
         res.status(404);
         console.log("error while queryting the user", err);
         res.json({ error: "User doesnt exist" });
       } else {
         res.status(200); // OK
-        res.json(course);
+        res.json(user);
       }
     });
   }
@@ -91,7 +91,7 @@ const userPatch = (req, res) => {
 
 const userDelete = (req, res) => {
   if (req.query && req.query.id) {
-    Course.findByIdAndDelete(req.query.id, function (err) {
+    User.findByIdAndDelete(req.query.id, function (err) {
       if (err) {
         res.status(404);
         console.log("error while queryting the user", err);
