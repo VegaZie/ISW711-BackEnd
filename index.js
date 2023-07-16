@@ -19,11 +19,11 @@ const {
 const { authenticate } = require("./controllers/sessionController");
 
 const {
-  promtDelete,
-  promtGet,
-  promtPatch,
-  promtPost,
-} = require("./controllers/promtController.js");
+  promtEditDelete,
+  promtEditGet,
+  promtEditPatch,
+  promtEditPost,
+} = require("./controllers/promtEditController.js");
 
 // parser for the request body (required for the POST and PUT methods)
 const bodyParser = require("body-parser");

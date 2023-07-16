@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const Promt = require("../models/promtModel");
+const Promt = require("../models/promtEditModel");
 
 /**
  * Creates a promt
@@ -8,7 +8,7 @@ const Promt = require("../models/promtModel");
  * @param {*} req
  * @param {*} res
  */
-const promtPost = async (req, res) => {
+const promtEditPost = async (req, res) => {
   let promt = new Promt(req.body);
   await promt
     .save()
@@ -33,7 +33,7 @@ const promtPost = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const promtGet = (req, res) => {
+const promtEditGet = (req, res) => {
   // if an specific promt is required
   let id = req.query.id;
   if (req.query && id) {
@@ -67,7 +67,7 @@ const promtGet = (req, res) => {
  * @param {*} res
  */
 
-const promtPatch = (req, res) => {
+const promtEditPatch = (req, res) => {
   if (req.query && req.query.id) {
     Promt.findByIdAndUpdate(req.query.id, req.body, function (err, course) {
       if (err) {
@@ -88,7 +88,7 @@ const promtPatch = (req, res) => {
  * @param {*} res
  */
 
-const promtDelete = (req, res) => {
+const promtEditDelete = (req, res) => {
   if (req.query && req.query.id) {
     Promt.findByIdAndDelete(req.query.id, function (err) {
       if (err) {
@@ -111,8 +111,8 @@ const promtDelete = (req, res) => {
 };
 
 module.exports = {
-  promtDelete,
-  promtGet,
-  promtPatch,
-  promtPost,
+  promtEditDelete,
+  promtEditGet,
+  promtEditPatch,
+  promtEditPost,
 };
