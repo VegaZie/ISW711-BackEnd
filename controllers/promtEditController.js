@@ -3,10 +3,10 @@ require("dotenv").config();
 const Promt = require("../models/promtEditModel");
 
 /**
- * Creates a promt
+ * Crea un nuevo registro de promtEdit (edición de prompts) en la base de datos.
  *
- * @param {*} req
- * @param {*} res
+ * @param {*} req - Objeto de solicitud de Express.
+ * @param {*} res - Objeto de respuesta de Express.
  */
 const promtEditPost = async (req, res) => {
   let promt = new Promt(req.body);
@@ -22,19 +22,20 @@ const promtEditPost = async (req, res) => {
     .catch((err) => {
       res.status(422);
       res.json({
-        error: "There was an error saving the promt",
+        error: "Hubo un error al guardar el promt",
       });
     });
 };
 
 /**
- * Get all promts or one
+ * Obtiene todos los registros de promtEdit (edición de prompts) almacenados en la base de datos.
+ * También puede obtener un solo registro si se proporciona un ID específico en la consulta.
  *
- * @param {*} req
- * @param {*} res
+ * @param {*} req - Objeto de solicitud de Express.
+ * @param {*} res - Objeto de respuesta de Express.
  */
 const promtEditGet = (req, res) => {
-  // if an specific promt is required
+  // Si se requiere un promt específico
   let id = req.query.id;
   if (req.query && id) {
     Promt.findOne({ id })
@@ -44,10 +45,10 @@ const promtEditGet = (req, res) => {
       })
       .catch((err) => {
         res.status(404);
-        res.json({ error: "Promt doesnt exist" });
+        res.json({ error: "El promt no existe" });
       });
   } else {
-    // get all promts
+    // Obtiene todos los promts
     Promt.find()
       .populate("promt")
       .then((promts) => {
@@ -61,52 +62,50 @@ const promtEditGet = (req, res) => {
 };
 
 /**
- * Patch promt
+ * Actualiza un registro de promtEdit (edición de prompts) en la base de datos.
  *
- * @param {*} req
- * @param {*} res
+ * @param {*} req - Objeto de solicitud de Express.
+ * @param {*} res - Objeto de respuesta de Express.
  */
-
 const promtEditPatch = (req, res) => {
   if (req.query && req.query.id) {
-    Promt.findByIdAndUpdate(req.query.id, req.body, function (err, course) {
+    Promt.findByIdAndUpdate(req.query.id, req.body, function (err, promt) {
       if (err) {
         res.status(404);
-        res.json({ error: "Promt doesnt exist" });
+        res.json({ error: "El promt no existe" });
       } else {
         res.status(200); // OK
-        res.json(course);
+        res.json(promt);
       }
     });
   }
 };
 
 /**
- * Delete promt
+ * Elimina un registro de promtEdit (edición de prompts) de la base de datos.
  *
- * @param {*} req
- * @param {*} res
+ * @param {*} req - Objeto de solicitud de Express.
+ * @param {*} res - Objeto de respuesta de Express.
  */
-
 const promtEditDelete = (req, res) => {
   if (req.query && req.query.id) {
     Promt.findByIdAndDelete(req.query.id, function (err) {
       if (err) {
         res.status(404);
-        res.json({ error: "Promt doesnt exist" });
+        res.json({ error: "El promt no existe" });
       }
       if (err) {
         res.status(422);
         res.json({
-          error: "There was an error deleting the promt",
+          error: "Hubo un error al eliminar el promt",
         });
       }
-      res.status(204);
+      res.status(204); // No Content
       res.json({});
     });
   } else {
     res.status(404);
-    res.json({ error: "Promt doesnt exist" });
+    res.json({ error: "El promt no existe" });
   }
 };
 
