@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const Promt = require("../models/promtEditModel");
+const Promt = require("../models/promtModel");
 
 /**
  * Crea un nuevo registro de promtEdit (edición de prompts) en la base de datos.

@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const Promt = require("../models/promtImagesModel");
+const Promt = require("../models/promtModel");
 
 /**
  * Crea un nuevo registro de promtImages (completado de prompts) en la base de datos.
