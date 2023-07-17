@@ -6,7 +6,7 @@ const app = express();
 const mongoose = require("mongoose");
 const db = mongoose.connect(process.env.MONGO_DATABASE_URL);
 const secretKey = process.env.SECRET_KEY;
-const User = require("../models/userModel");
+const User = require("./models/userModel");
 
 const jwt = require("jsonwebtoken");
 const {
