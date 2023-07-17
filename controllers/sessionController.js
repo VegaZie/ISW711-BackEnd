@@ -2,11 +2,24 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const secretKey = process.env.SECRET_KEY;
 
+/**
+ * Genera un token JWT basado en la información del usuario proporcionada.
+ *
+ * @param {Object} userData - Información del usuario que se utilizará para generar el token.
+ * @returns {string} - Token JWT generado.
+ */
 function generateJWTToken(userData) {
   const { email, role, _id, name } = userData;
   return jwt.sign({ email, role, id_user: _id, name }, secretKey);
 }
 
+/**
+ * Autentica a un usuario mediante su correo electrónico y contraseña.
+ *
+ * @param {*} req - Objeto de solicitud de Express que contiene los datos de usuario a autenticar.
+ * @param {*} res - Objeto de respuesta de Express.
+ * @returns {JSON} - Respuesta JSON que contiene el token JWT y la información del usuario.
+ */
 async function authenticate(req, res) {
   const { email, password } = req.body;
 

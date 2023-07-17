@@ -1,10 +1,10 @@
 const User = require("../models/userModel");
 
 /**
- * Post user
+ * Crea un nuevo usuario.
  *
- * @param {*} req
- * @param {*} res
+ * @param {*} req - Objeto de solicitud de Express que contiene los datos del usuario a crear.
+ * @param {*} res - Objeto de respuesta de Express.
  */
 const userPost = async (req, res) => {
   let user = new User(req.body);
@@ -19,35 +19,35 @@ const userPost = async (req, res) => {
     })
     .catch((err) => {
       res.status(422);
-      console.log("error while saving the user", err);
+      console.error("Error al guardar el usuario:", err);
       res.json({
-        error: "There was an error saving the user",
+        error: "Hubo un error al guardar el usuario",
       });
     });
 };
 
 /**
- * Get all users or one
+ * Obtiene todos los usuarios o uno específico.
  *
- * @param {*} req
- * @param {*} res
+ * @param {*} req - Objeto de solicitud de Express que puede contener un correo electrónico para buscar un usuario específico.
+ * @param {*} res - Objeto de respuesta de Express.
  */
 const userGet = (req, res) => {
-  // if an specific user is required
+  // Si se requiere un usuario específico
   let email = req.query.email;
   if (req.query && email) {
-    User.findOne({email})
+    User.findOne({ email })
       .populate("users")
       .then((user) => {
         res.json(user);
       })
       .catch((err) => {
         res.status(404);
-        console.log("error while queryting the user", err);
-        res.json({ error: "User doesnt exist" });
+        console.error("Error al buscar el usuario:", err);
+        res.json({ error: "El usuario no existe" });
       });
   } else {
-    // get all users
+    // Obtener todos los usuarios
     User.find()
       .populate("users")
       .then((users) => {
@@ -55,25 +55,25 @@ const userGet = (req, res) => {
       })
       .catch((err) => {
         res.status(422);
+        console.error("Error al obtener los usuarios:", err);
         res.json({ error: err });
       });
   }
 };
 
 /**
- * Patch user
+ * Actualiza un usuario existente.
  *
- * @param {*} req
- * @param {*} res
+ * @param {*} req - Objeto de solicitud de Express que contiene los datos del usuario a actualizar.
+ * @param {*} res - Objeto de respuesta de Express.
  */
-
 const userPatch = (req, res) => {
   if (req.query && req.query.id) {
     User.findByIdAndUpdate(req.query.id, req.body, function (err, user) {
       if (err) {
         res.status(404);
-        console.log("error while queryting the user", err);
-        res.json({ error: "User doesnt exist" });
+        console.error("Error al buscar el usuario:", err);
+        res.json({ error: "El usuario no existe" });
       } else {
         res.status(200); // OK
         res.json(user);
@@ -83,40 +83,38 @@ const userPatch = (req, res) => {
 };
 
 /**
- * Delete user
+ * Elimina un usuario existente.
  *
- * @param {*} req
- * @param {*} res
+ * @param {*} req - Objeto de solicitud de Express que contiene el ID del usuario a eliminar.
+ * @param {*} res - Objeto de respuesta de Express.
  */
-
 const userDelete = (req, res) => {
   if (req.query && req.query.id) {
     User.findByIdAndDelete(req.query.id, function (err) {
       if (err) {
         res.status(404);
-        console.log("error while queryting the user", err);
-        res.json({ error: "User doesnt exist" });
+        console.error("Error al buscar el usuario:", err);
+        res.json({ error: "El usuario no existe" });
       }
       if (err) {
         res.status(422);
-        console.log('error while deleting the user', err)
+        console.error("Error al eliminar el usuario:", err);
         res.json({
-          error: 'There was an error deleting the user'
+          error: "Hubo un error al eliminar el usuario",
         });
       }
-      res.status(204);
+      res.status(204); // NO CONTENT
       res.json({});
     });
   } else {
     res.status(404);
-    res.json({ error: "User doesnt exist" });
+    res.json({ error: "El usuario no existe" });
   }
 };
-
 
 module.exports = {
   userPost,
   userGet,
   userPatch,
-  userDelete
+  userDelete,
 };

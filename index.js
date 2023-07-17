@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const app = express();
 
-// database connection
+// conexión de base de datos
 const mongoose = require("mongoose");
 const db = mongoose.connect(process.env.MONGO_DATABASE_URL);
 const secretKey = process.env.SECRET_KEY;
@@ -25,7 +25,7 @@ const {
   promtEditPost,
 } = require("./controllers/promtEditController.js");
 
-// parser for the request body (required for the POST and PUT methods)
+// analizador sintáctico del cuerpo de la solicitud (necesario para los métodos POST y PUT)
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
@@ -41,7 +41,7 @@ app.use(
 // Session
 app.post("/api/authenticate", authenticate);
 
-//user create
+// Creación de usuario (no protegido por JWT)
 app.post("/api/user", userPost);
 
 // Middleware para verificar el token JWT en las rutas protegidas
@@ -74,15 +74,15 @@ app.use(async function (req, res, next) {
   }
 });
 
-// User
+//Rutas de usuario (protegidas por JWT)
 app.get("/api/user", userGet);
 app.patch("/api/user", userPatch);
 app.delete("/api/user", userDelete);
 
-// Promt
-app.post("/api/promt", promtPost);
-app.get("/api/promt", promtGet);
-app.patch("/api/promt", promtPatch);
-app.delete("/api/promt", promtDelete);
+// Rutas Promt (protegidas por JWT)
+app.post("/api/promt", promtEditPost);
+app.get("/api/promt", promtEditGet);
+app.patch("/api/promt", promtEditPatch);
+app.delete("/api/promt", promtEditDelete);
 
 app.listen(3001, () => console.log(`Listening on port 3001!`));
