@@ -16,7 +16,7 @@ const {
   userDelete,
 } = require("./controllers/userController.js");
 
-const { authenticate } = require("./controllers/sessionController");
+const { authenticate } = require("./controllers/sessionController.js");
 
 const {
   promtEditDelete,
@@ -24,6 +24,26 @@ const {
   promtEditPatch,
   promtEditPost,
 } = require("./controllers/promtEditController.js");
+
+const {
+  promtCompletionsDelete,
+  promtCompletionsGet,
+  promtCompletionsPatch,
+  promtCompletionsPost,
+} = require("./controllers/promtCompletionsController.js");
+
+const {
+  promtImagesDelete,
+  promtImagesGet,
+  promtImagesPatch,
+  promtImagesPost,
+} = require("./controllers/promtImagesController.js");
+
+const {
+  createImage,
+  executeCompletionsPrompt,
+  executeEditPromt,
+} = require("./controllers/openAiController.js");
 
 // analizador sintáctico del cuerpo de la solicitud (necesario para los métodos POST y PUT)
 const bodyParser = require("body-parser");
@@ -79,10 +99,27 @@ app.get("/api/user", userGet);
 app.patch("/api/user", userPatch);
 app.delete("/api/user", userDelete);
 
-// Rutas Promt (protegidas por JWT)
-app.post("/api/promt", promtEditPost);
-app.get("/api/promt", promtEditGet);
-app.patch("/api/promt", promtEditPatch);
-app.delete("/api/promt", promtEditDelete);
+// Rutas Edit Promt (protegidas por JWT)
+app.post("/api/promt/edit", promtEditPost);
+app.get("/api/promt/edit", promtEditGet);
+app.patch("/api/promt/edit", promtEditPatch);
+app.delete("/api/promt/edit", promtEditDelete);
+
+// Rutas completions Promt (protegidas por JWT)
+app.post("/api/promt/completions", promtCompletionsPost);
+app.get("/api/promt/completions", promtCompletionsGet);
+app.patch("/api/promt/completions", promtCompletionsPatch);
+app.delete("/api/promt/completions", promtCompletionsDelete);
+
+// Rutas images Promt (protegidas por JWT)
+app.post("/api/promt/images", promtImagesPost);
+app.get("/api/promt/images", promtImagesGet);
+app.patch("/api/promt/images", promtImagesPatch);
+app.delete("/api/promt/images", promtImagesDelete);
+
+// Rutas de ejución de Promt (protegidas por JWT)
+app.post("/api/promt/execute/edit", executeEditPromt);
+app.post("/api/promt/execute/completions", executeCompletionsPrompt);
+app.post("/api/promt/execute/images", createImage);
 
 app.listen(3001, () => console.log(`Listening on port 3001!`));
