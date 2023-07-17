@@ -10,7 +10,12 @@ const secretKey = process.env.SECRET_KEY;
  */
 function generateJWTToken(userData) {
   const { email, role, _id, name } = userData;
-  return jwt.sign({ email, role, id_user: _id, name }, secretKey);
+
+  // Definir la duración del token
+  const expiresIn = "1d";
+
+  // Crear el token con la fecha de expiración
+  return jwt.sign({ email, role, id_user: _id, name }, secretKey, { expiresIn });
 }
 
 /**
