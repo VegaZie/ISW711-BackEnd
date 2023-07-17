@@ -15,7 +15,9 @@ function generateJWTToken(userData) {
   const expiresIn = "1d";
 
   // Crear el token con la fecha de expiración
-  return jwt.sign({ email, role, id_user: _id, name }, secretKey, { expiresIn });
+  return jwt.sign({ email, role, id_user: _id, name }, secretKey, {
+    expiresIn,
+  });
 }
 
 /**
@@ -38,6 +40,11 @@ async function authenticate(req, res) {
     const isPasswordValid = user.password === password;
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Credenciales inválidas" });
+    }
+
+    // Verificar si el usuario está verificado
+    if (!user.verified) {
+      return res.status(401).json({ error: "Usuario no verificado" });
     }
 
     const token = generateJWTToken(user);
