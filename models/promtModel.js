@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const promtSchema = new mongoose.Schema({
   model: { type: String },
@@ -10,6 +10,7 @@ const promtSchema = new mongoose.Schema({
   size: { type: String },
   response: { type: String },
   userID: { type: String },
+  tags: { type: [String] },
 });
 
-module.exports = mongoose.model('Promt', promtSchema);
+module.exports = mongoose.model("Promt", promtSchema);
