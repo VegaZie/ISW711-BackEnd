@@ -36,9 +36,9 @@ const promtImagesPost = async (req, res) => {
  */
 const promtImagesGet = (req, res) => {
   // Si se requiere un promt específico
-  let id = req.query.id;
-  if (req.query && id) {
-    Promt.findOne({ id })
+  let userID = req.query.userID;
+  if (req.query && userID) {
+    Promt.findOne({ userID })
       .populate("promt")
       .then((promt) => {
         res.json(promt);
