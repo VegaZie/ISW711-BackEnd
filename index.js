@@ -19,25 +19,11 @@ const {
 const { authenticate } = require("./controllers/sessionController.js");
 
 const {
-  promtEditDelete,
-  promtEditGet,
-  promtEditPatch,
-  promtEditPost,
-} = require("./controllers/promtEditController.js");
-
-const {
-  promtCompletionsDelete,
-  promtCompletionsGet,
-  promtCompletionsPatch,
-  promtCompletionsPost,
-} = require("./controllers/promtCompletionsController.js");
-
-const {
-  promtImagesDelete,
-  promtImagesGet,
-  promtImagesPatch,
-  promtImagesPost,
-} = require("./controllers/promtImagesController.js");
+  promtDelete,
+  promtGet,
+  promtPatch,
+  promtPost,
+} = require("./controllers/promtController.js");
 
 const {
   createImage,
@@ -74,7 +60,7 @@ app.use(function (req, res, next) {
   // Verificar si el token de autorización se encuentra en las cabeceras de la solicitud
   if (req.headers["authorization"]) {
     // Extraer el token del encabezado "Authorization"
-    const authToken = req.headers['authorization'].split(' ')[1];
+    const authToken = req.headers["authorization"].split(" ")[1];
 
     try {
       // Verificar y decodificar el token utilizando la clave secreta
@@ -83,7 +69,7 @@ app.use(function (req, res, next) {
           // Si hay un error o el token no es válido, enviar una respuesta de error de "Unauthorized"
           res.status(401);
           res.json({
-            error: "Unauthorized"
+            error: "Unauthorized",
           });
         } else {
           // Si el token es válido, continuar con el siguiente middleware o ruta
@@ -94,41 +80,28 @@ app.use(function (req, res, next) {
       // Si ocurre un error durante la verificación del token, enviar una respuesta de error de "Unauthorized"
       res.status(401);
       res.send({
-        error: "Unauthorized"
+        error: "Unauthorized",
       });
     }
   } else {
     // Si no se proporciona un token de autorización, enviar una respuesta de error de "Unauthorized"
     res.status(401);
     res.send({
-      error: "Unauthorized"
+      error: "Unauthorized",
     });
   }
 });
-
 
 //Rutas de usuario (protegidas por JWT)
 app.get("/api/user", userGet);
 app.patch("/api/user", userPatch);
 app.delete("/api/user", userDelete);
 
-// Rutas Edit Promt (protegidas por JWT)
-app.post("/api/promt/edit", promtEditPost);
-app.get("/api/promt/edit", promtEditGet);
-app.patch("/api/promt/edit", promtEditPatch);
-app.delete("/api/promt/edit", promtEditDelete);
-
-// Rutas completions Promt (protegidas por JWT)
-app.post("/api/promt/completions", promtCompletionsPost);
-app.get("/api/promt/completions", promtCompletionsGet);
-app.patch("/api/promt/completions", promtCompletionsPatch);
-app.delete("/api/promt/completions", promtCompletionsDelete);
-
-// Rutas images Promt (protegidas por JWT)
-app.post("/api/promt/images", promtImagesPost);
-app.get("/api/promt/images", promtImagesGet);
-app.patch("/api/promt/images", promtImagesPatch);
-app.delete("/api/promt/images", promtImagesDelete);
+// Rutas Promt (protegidas por JWT)
+app.post("/api/promt", promtPost);
+app.get("/api/promt", promtGet);
+app.patch("/api/promt", promtPatch);
+app.delete("/api/promt", promtDelete);
 
 // Rutas de ejución de Promt (protegidas por JWT)
 app.post("/api/promt/execute/edit", executeEditPromt);

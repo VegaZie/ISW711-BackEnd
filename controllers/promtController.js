@@ -1,14 +1,13 @@
 require("dotenv").config();
-
 const Promt = require("../models/promtModel");
 
 /**
- * Crea un nuevo registro de promtCompletions (completado de prompts) en la base de datos.
+ * Crea un nuevo registro de promt en la base de datos.
  *
  * @param {*} req - Objeto de solicitud de Express.
  * @param {*} res - Objeto de respuesta de Express.
  */
-const promtCompletionsPost = async (req, res) => {
+const promtPost = async (req, res) => {
   let promt = new Promt(req.body);
   await promt
     .save()
@@ -28,13 +27,13 @@ const promtCompletionsPost = async (req, res) => {
 };
 
 /**
- * Obtiene todos los registros de promtCompletions (completado de prompts) almacenados en la base de datos.
+ * Obtiene todos los registros de promt almacenados en la base de datos.
  * También puede obtener un solo registro si se proporciona un ID específico en la consulta.
  *
  * @param {*} req - Objeto de solicitud de Express.
  * @param {*} res - Objeto de respuesta de Express.
  */
-const promtCompletionsGet = (req, res) => {
+const promtGet = (req, res) => {
   // Si se requiere un promt específico
   let userID = req.query.userID;
   if (req.query && userID) {
@@ -62,12 +61,12 @@ const promtCompletionsGet = (req, res) => {
 };
 
 /**
- * Actualiza un registro de promtCompletions (completado de prompts) en la base de datos.
+ * Actualiza un registro de promt en la base de datos.
  *
  * @param {*} req - Objeto de solicitud de Express.
  * @param {*} res - Objeto de respuesta de Express.
  */
-const promtCompletionsPatch = (req, res) => {
+const promtPatch = (req, res) => {
   if (req.query && req.query.id) {
     Promt.findByIdAndUpdate(req.query.id, req.body, function (err, promt) {
       if (err) {
@@ -82,12 +81,12 @@ const promtCompletionsPatch = (req, res) => {
 };
 
 /**
- * Elimina un registro de promtCompletions (completado de prompts) de la base de datos.
+ * Elimina un registro de promt de la base de datos.
  *
  * @param {*} req - Objeto de solicitud de Express.
  * @param {*} res - Objeto de respuesta de Express.
  */
-const promtCompletionsDelete = (req, res) => {
+const promtDelete = (req, res) => {
   if (req.query && req.query.id) {
     Promt.findByIdAndDelete(req.query.id, function (err) {
       if (err) {
@@ -110,8 +109,8 @@ const promtCompletionsDelete = (req, res) => {
 };
 
 module.exports = {
-  promtCompletionsDelete,
-  promtCompletionsGet,
-  promtCompletionsPatch,
-  promtCompletionsPost,
+  promtPost,
+  promtGet,
+  promtPatch,
+  promtDelete,
 };
