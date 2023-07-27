@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 
+const imageSchema = new mongoose.Schema({
+  url: { type: String, required: true },
+});
+
 const promtSchema = new mongoose.Schema({
   name: { type: String },
   model: { type: String },
@@ -10,7 +14,7 @@ const promtSchema = new mongoose.Schema({
   quantity: { type: Number },
   size: { type: String },
   response: { type: String },
-  imageresponse: { type: [String] },
+  imageresponse: { type: [imageSchema], required: true  },
   userID: { type: String },
   tags: { type: [String] },
   type: { type: String },
