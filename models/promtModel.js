@@ -7,7 +7,7 @@ const promtSchema = new mongoose.Schema({
   instruction: { type: String },
   promt: { type: String },
   temperature: { type: Number },
-  quantity: { type: String },
+  quantity: { type: Number },
   size: { type: String },
   response: { type: String },
   imageresponse: { type: [String] },
