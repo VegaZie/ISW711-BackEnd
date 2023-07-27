@@ -38,24 +38,12 @@ const promtGet = (req, res) => {
   let userID = req.query.userID;
   if (req.query && userID) {
     Promt.find({ userID })
-      .populate("promt")
       .then((promt) => {
         res.json(promt);
       })
       .catch((err) => {
         res.status(404);
         res.json({ error: "El promt no existe" });
-      });
-  } else {
-    // Obtiene todos los promts
-    Promt.find()
-      .populate("promt")
-      .then((promts) => {
-        res.json(promts);
-      })
-      .catch((err) => {
-        res.status(422);
-        res.json({ error: err });
       });
   }
 };
