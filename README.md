@@ -23,47 +23,19 @@ Este es un API que proporciona operaciones CRUD para usuarios y ejecución de pr
 - **DELETE /api/user**
   Endpoint para eliminar la cuenta del usuario actual. Protegido por JWT.
 
-### Prompts Edit
+### Prompts
 
-- **POST /api/promt/edit**
-  Endpoint para crear un nuevo prompt del modelo "edit". Protegido por JWT.
+- **POST /api/promt**
+  Endpoint para crear un nuevo prompt. Protegido por JWT.
 
-- **GET /api/promt/edit**
-  Endpoint para obtener la lista de prompts del modelo "edit". Protegido por JWT.
+- **GET /api/promt**
+  Endpoint para obtener la lista de prompts. Protegido por JWT.
 
-- **PATCH /api/promt/edit**
-  Endpoint para actualizar un prompt específico del modelo "edit". Protegido por JWT.
+- **PATCH /api/promt**
+  Endpoint para actualizar un prompt específico. Protegido por JWT.
 
-- **DELETE /api/promt/edit**
-  Endpoint para eliminar un prompt específico del modelo "edit". Protegido por JWT.
-
-### Prompts Completions
-
-- **POST /api/promt/completions**
-  Endpoint para crear un nuevo prompt del modelo "completions". Protegido por JWT.
-
-- **GET /api/promt/completions**
-  Endpoint para obtener la lista de prompts del modelo "completions". Protegido por JWT.
-
-- **PATCH /api/promt/completions**
-  Endpoint para actualizar un prompt específico del modelo "completions". Protegido por JWT.
-
-- **DELETE /api/promt/completions**
-  Endpoint para eliminar un prompt específico del modelo "completions". Protegido por JWT.
-
-### Prompts Images
-
-- **POST /api/promt/images**
-  Endpoint para crear un nuevo prompt del modelo "images". Protegido por JWT.
-
-- **GET /api/promt/images**
-  Endpoint para obtener la lista de prompts del modelo "images". Protegido por JWT.
-
-- **PATCH /api/promt/images**
-  Endpoint para actualizar un prompt específico del modelo "images". Protegido por JWT.
-
-- **DELETE /api/promt/images**
-  Endpoint para eliminar un prompt específico del modelo "images". Protegido por JWT.
+- **DELETE /api/promt**
+  Endpoint para eliminar un prompt específico. Protegido por JWT.
 
 ### Ejecución de Prompts
 
